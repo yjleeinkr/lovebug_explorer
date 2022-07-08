@@ -1,0 +1,81 @@
+#category td {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+tr {
+  height: 35px;
+}
+
+td {
+  border-bottom: 1px solid #a4a9a4;
+  text-align: center;
+}
+
+.block_list:hover,
+.tx_list:hover {
+  background-color: #d7dacc;
+}
+
+.height {
+  width: 7%;
+  font-size: 13px;
+}
+
+.hash {
+  width: 27%;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date {
+  width: 8%;
+  font-size: 12px;
+}
+
+.txn {
+  width: 3%;
+  font-size: 13px;
+}
+
+.miner {
+  width: 25%;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gas_used {
+  width: 8%;
+  font-size: 13px;
+}
+
+.gas_limit {
+  width: 8%;
+  font-size: 13px;
+}
+
+.tx_height {
+  width: 7%;
+  font-size: 13px;
+}
+
+.tx_date {
+  width: 8%;
+  font-size: 12px;
+}
+.tx_hash,
+.tx_from,
+.tx_to {
+  width: 20%;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tx_value,
+.tx_fee {
+  width: 6%;
+  font-size: 12px;
+}
