@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Responsive from "../../Components/Responsive";
@@ -9,11 +9,18 @@ import { Section } from "../../Components/Section";
 const Wrapper = styled(Responsive)`
   margin-top: 30px;
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 73vh;
   justify-content: space-evenly;
+  overflow: scroll;
 `;
 
+const WiderSection = styled(Section)`
+  width: 100%;
+  margin-bottom: 50px;
+  overflow: scroll;
+`;
 const Account = () => {
   const { acct } = useParams();
   const [balance, setBalance] = useState("");
@@ -22,8 +29,7 @@ const Account = () => {
   const [error, setError] = useState(false);
 
   const getAcctDetail = async (_acct) => {
-    const convertedAcct = _acct.toLowerCase();
-    const url = `http://localhost:4000/api/account/getDetails/${convertedAcct}`;
+    const url = `http://localhost:4000/api/account/getDetails/${_acct}`;
     try {
       const result = await axios.post(url);
       if (!result.data) throw new Error();
@@ -31,6 +37,7 @@ const Account = () => {
       setBalance(balanceEth);
       setBlockDetail(blockArr);
       setTxDetail(txArr);
+      console.log(result.data);
     } catch (err) {
       setError(true);
     }
@@ -39,6 +46,30 @@ const Account = () => {
   useEffect(() => {
     getAcctDetail(acct);
   }, []);
+
+  const renderTx = () =>
+    txDetail.map((_tx, k) => {
+      return (
+        <ul key={k}>
+          <li>TxHash: {_tx.txHash}</li>
+          <li>From : {_tx.from}</li>
+          <li>To : {_tx.to}</li>
+          <li>Value : {_tx.value}</li>
+          <li>Block# : {_tx.blockNumber}</li>
+          <li>Timestamp : {_tx.timestamp}</li>
+        </ul>
+      );
+    });
+
+  const renderBlock = () =>
+    blockDetail.map((_block, k) => {
+      return (
+        <ul key={k}>
+          <li>Block#: {_block.number}</li>
+          <li>hash: {_block.hash}</li>
+        </ul>
+      );
+    });
 
   return (
     <Responsive>
@@ -49,8 +80,10 @@ const Account = () => {
         <>
           <h3>balance : {balance} eth </h3>
           <Wrapper>
-            <Section>아 귀찮아</Section>
-            <Section>아 언제해</Section>
+            <Title>Transaction ({txDetail.length})</Title>
+            <WiderSection>{renderTx()}</WiderSection>
+            <Title>Mined Block ({blockDetail.length})</Title>
+            <WiderSection>{renderBlock()}</WiderSection>
           </Wrapper>
         </>
       )}

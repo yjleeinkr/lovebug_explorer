@@ -11,6 +11,7 @@ const web3 = new Web3(
 
 router.post("/getDetails/:acct", async (req, res) => {
   const { acct } = req.params;
+  console.log(acct);
   try {
     const minedBlock = await db.Block.findAll({
       attributes: ["number", "hash"],
